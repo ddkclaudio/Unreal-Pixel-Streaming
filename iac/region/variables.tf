@@ -7,7 +7,7 @@
 
 #CHANGE: Set your forked path here for your GitHub repo (and be sure to check in changes as scripts pull resources from GitHub)
 variable "gitpath" {
-  default = "https://github.com/Azure/UnrealEngine.git"
+  default = "https://github.com/ddkclaudio/Unreal-Pixel-Streaming.git"
 }
 
 #The name of the Unreal 3D App, (i.e., PixelStreamingDemo.exe without the .exe at the end)
@@ -60,11 +60,11 @@ variable "matchmaker_vm_storage_account_type" {
 }
 
 #Signaling Server SKU for the VMSS cluster. NV6 have the NVidia GPUs and are more widely available,
-#but increase your quota in your Azure portal for NV12s_v3's and use those below as they have a newer, more 
+#but increase your quota in your Azure portal for NV12s_v3's and use those below as they have a newer, more
 #powerful CPU for similar price. NV6 was the default chosen below to avoid quota errors when using this for the first time.
 variable "vmss_size" {
-  default = "Standard_NV6"
-  #default = "Standard_NV12s_v3"
+  # default = "Standard_NV6"
+  default = "Standard_DS3_v2"
 }
 
 #MSFT created an image in the marketplace that has all the pre-reqs install on Windows 10 for the MM and SS VMs.
