@@ -164,6 +164,3 @@ module "region_deployment" {
   storage_account_name = azurerm_storage_account.storageaccount.name
   storage_account_key  = azurerm_storage_account.storageaccount.primary_access_key
 }
-
-
-
