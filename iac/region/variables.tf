@@ -1,6 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
-
+# teste
 #This file is the most critical variables to set and validate for your project needs. This decides what settings are deployed
 #to each Matchmaker and Signalling Server nodes. IMPORTANT: Set the gitpath to your forked version and the pixel_stream_application_name
 #in order for the deployment to work for your customizations. Be sure to checking and PUSH all GitHub changes as the deployment pulls from Git.
