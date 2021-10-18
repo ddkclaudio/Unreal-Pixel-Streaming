@@ -386,3 +386,4 @@ resource "azurerm_traffic_manager_endpoint" "traffic_manager_endpoint" {
   endpoint_location = azurerm_resource_group.region-rg.location
   type              = "externalEndpoints"
 }
+#test
