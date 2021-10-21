@@ -149,6 +149,10 @@ resource "azurerm_windows_virtual_machine" "vm" {
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
+    timeouts {
+    create = "60m"
+    delete = "60m"
+  }
 
   os_disk {
     caching              = "ReadWrite"
