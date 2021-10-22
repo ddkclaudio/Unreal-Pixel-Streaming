@@ -112,18 +112,11 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
     Set-Location -Path $folder
 
     logmessage "Git LFS Install"
-    # Skip smudge
-    git lfs install --skip-smudge
+    git lfs install
     Start-Sleep 10
 
     logmessage "Git Clone Start"
     git clone --depth 1 $gitpath $folderNoTrail --q
-
-    #Fetch all the binary files in the new clone
-    git lfs pull
-
-    # Reinstate smudge
-    # git lfs install --force
     logmessage "Git Clone Complete"
 
     logmessage "Git cloning process Complete"
@@ -313,8 +306,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
 
   #Add param for which version of SS folder we are at
   #Invoke-Expression "$executionfilepath $instanceNum $streamingPort $resolutionWidth $resolutionHeight $pixel_stream_application_name"
-  logmessage $taskName
-  # Start-ScheduledTask -TaskName $taskName -AsJob
+  Start-ScheduledTask -TaskName $taskName -AsJob
 }
 
 $EndTime = Get-Date
