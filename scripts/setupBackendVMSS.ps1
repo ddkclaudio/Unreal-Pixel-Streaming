@@ -113,7 +113,7 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
 
     logmessage "Git LFS Install"
     # Skip smudge
-    git lfs install --skip-smudge
+    git lfs install #--skip-smudge
     Start-Sleep 10
 
     logmessage "Git Clone Start"
@@ -123,7 +123,7 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
     git lfs pull
 
     # Reinstate smudge
-    git lfs install --force
+    #git lfs install --force
     logmessage "Git Clone Complete"
 
     logmessage "Git cloning process Complete"
