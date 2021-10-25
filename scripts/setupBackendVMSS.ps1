@@ -6,7 +6,7 @@ Param (
   [Parameter(Mandatory = $True, HelpMessage = "resource group name")]
   [String]$resource_group_name = "",
   [Parameter(Mandatory = $True, HelpMessage = "vmss name")]
-  [String]$vmss_name = "",  
+  [String]$vmss_name = "",
   [Parameter(Mandatory = $True, HelpMessage = "application insights key")]
   [String]$application_insights_key = "",
   [Parameter(Mandatory = $True, HelpMessage = "matchmaker load balancer fqdn")]
@@ -62,7 +62,7 @@ $defaultHttpsPort = 443
 if ($pat.Length -gt 0) {
   #handle if a PAT was passed and use that in the url
   $newprefix = "https://$pat@"
-  $gitpath = $gitpath -replace "https://", $newprefix  
+  $gitpath = $gitpath -replace "https://", $newprefix
 }
 #####################################################################################################
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -70,7 +70,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 
 New-Item -Path $logsfolder -ItemType directory -Force
 function logmessage() {
-  $logmessage = $args[0]    
+  $logmessage = $args[0]
   $MessageTime = Get-Date -Format "[MM/dd/yyyy HH:mm:ss]"
 
   $output = "$MessageTime - $logmessage"
@@ -109,12 +109,11 @@ logmessage "Cloning code process from Git Start"
 if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
   try {
     logmessage "Set Path to: $folder"
-    Set-Location -Path $folder 
+    Set-Location -Path $folder
 
     logmessage "Git LFS Install"
     # Skip smudge
-    git lfs install #--skip-smudge
-    Start-Sleep 10
+    git lfs install --skip-smudge
 
     logmessage "Git Clone Start"
     git clone --depth 1 $gitpath $folderNoTrail --q
@@ -123,7 +122,8 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
     git lfs pull
 
     # Reinstate smudge
-    #git lfs install --force
+    git lfs install --force
+
     logmessage "Git Clone Complete"
 
     logmessage "Git cloning process Complete"
@@ -135,8 +135,8 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
   finally {
     $error.clear()
   }
-} 
-else { 
+}
+else {
   logmessage "Unreal Folder was not Empty. ABORTING."
   break
 }
@@ -152,7 +152,7 @@ logmessage "Completed the Choco Upgrade All"
 #Add FPS to Engine.ini if FPS is set to > -1
 if ($fps -gt -1) {
   logmessage "Start - Adding FPS config to Engine.ini"
-  
+
   try {
     if (-not (Test-Path -LiteralPath $engineIniFilepath)) {
       logmessage "Cannot find Engine.ini folder - creating it and adding Engine.ini"
@@ -183,7 +183,7 @@ logmessage "Starting Loop"
 for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
   try {
     $SSFolder = $vmServiceFolder
-       
+
     #if we are at more than one instance in the loop we need to duplicate the SS dir
     if ($instanceNum -gt 1) {
       $taskName = "StartVMSS" + $instanceNum
@@ -196,7 +196,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
     }
 
     try {
-      Set-Location -Path $SSFolder 
+      Set-Location -Path $SSFolder
     }
     catch {
       logmessage $_.Exception.Message
@@ -233,7 +233,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
     logmessage "Exception: " + $_.Exception
   }
   finally {
-    $error.clear()    
+    $error.clear()
   }
 
   logmessage "Creating a job schedule "
@@ -248,7 +248,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
     logmessage "Exception: " + $_.Exception
   }
   finally {
-    $error.clear()    
+    $error.clear()
   }
 
   logmessage "Creating a job schedule complete"
@@ -261,10 +261,10 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
   [reflection.assembly]::LoadWithPartialName("System.DirectoryServices.AccountManagement")
   $whoami = [System.DirectoryServices.AccountManagement.UserPrincipal]::Current
   logmessage "Current Context: $whoami"
-  
+
   ### adding process to download certs
   logmessage "Starting download of certs"
-  
+
   #create the certificates folder
   $vmCertFolder = $SSFolder + "\certificates"
 
@@ -277,7 +277,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
   }
 
   #set the path to the certificates folder
-  Set-Location -Path $vmCertFolder 
+  Set-Location -Path $vmCertFolder
 
   try {
     #check to see if the key exists?
@@ -304,7 +304,7 @@ for ($instanceNum = 1; $instanceNum -le $instancesPerNode; $instanceNum++) {
     logmessage "Exception: " + $_.Exception
   }
   finally {
-    $error.clear()    
+    $error.clear()
   }
   logmessage "Starting the VMSS Process "
 
