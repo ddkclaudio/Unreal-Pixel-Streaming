@@ -46,7 +46,7 @@ variable "streamingPort" {
 
 #matchmaker vm size
 variable "matchmaker_vm_size" {
-  default = "Standard_F4s_v2"
+  default = "Standard_F8s_v2"
 }
 
 #Matchmaker VM login name
