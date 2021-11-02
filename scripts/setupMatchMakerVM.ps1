@@ -87,11 +87,18 @@ if ( (Get-ChildItem $folderNoTrail | Measure-Object).Count -eq 0) {
     Set-Location -Path $folder 
 
     logmessage "Git LFS Install"
-    git lfs install
-    Start-Sleep 10
+    # Skip smudge
+    git lfs install --skip-smudge
 
     logmessage "Git Clone Start"
     git clone --depth 1 $gitpath $folderNoTrail --q
+
+    #Fetch all the binary files in the new clone
+    git lfs pull
+
+    # Reinstate smudge
+    git lfs install --force
+
     logmessage "Git Clone Complete"
 
     logmessage "Git cloning process Complete"
