@@ -63,7 +63,7 @@ variable "matchmaker_vm_storage_account_type" {
 #but increase your quota in your Azure portal for NV12s_v3's and use those below as they have a newer, more
 #powerful CPU for similar price. NV6 was the default chosen below to avoid quota errors when using this for the first time.
 variable "vmss_size" {
-  default = "Standard_NV6"  
+  default = "Standard_NV6"
   #default = "Standard_NC6s_v3"
   #default = "Standard_DS3_v2"
 }
